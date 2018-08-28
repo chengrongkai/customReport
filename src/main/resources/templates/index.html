@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="../static/js/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../static/js/echarts/echarts.js"></script>
+    <link rel="stylesheet" href="../static/ztree/css/bootstrapStyle/bootstrapStyle.css" type="text/css">
+    <script type="text/javascript" src="../static/ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="../static/ztree/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="../static/ztree/js/jquery.ztree.exedit.js"></script>
+    <script type="text/javascript" src="../static/js/report/ztree.js"></script>
+    <meta charset="UTF-8">
+    <title>数据源列表</title>
+
+</head>
+<body>
+
+    <ul id="treeDemo" class="ztree"></ul>
+    <script type="text/javascript">
+
+//        var myChat = echarts.init(document.getElementById("demo"));
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        }
+//        myChat.setOption(option);
+    </script>
+</body>
+</html>

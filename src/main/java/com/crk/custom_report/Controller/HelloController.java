@@ -25,6 +25,7 @@ public class HelloController {
         Map<String, Object> map = new HashMap<>();
         request.getSession().setAttribute("request Url", request.getRequestURL());
         map.put("request Url", request.getRequestURL());
+        System.out.println(1111);
         return map;
     }
 

@@ -5,8 +5,8 @@ import com.crk.custom_report.modle.DataSourceEntityExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
 @Repository
 public interface DataSourceEntityMapper {
     /**

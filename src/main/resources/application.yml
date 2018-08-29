@@ -1,4 +1,8 @@
 spring:
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
   datasource:
     name: default
     url: jdbc:mysql://localhost:3306/mydatabase?useUnicode=true&amp;characterEncoding=UTF-8
@@ -25,6 +29,13 @@ spring:
     password: tj720!@
 server:
   port: 8080
+  servlet:
+    path: /customReport
+  thymeleaf:
+    cache: false
+  tomcat:
+    access_log_enabled: true
+    basedir: target/tomcat
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.crk.custom_report.modle

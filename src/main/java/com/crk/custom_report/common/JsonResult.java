@@ -9,6 +9,7 @@ public class JsonResult {
     private String success;
 //    返回数据
     private Object data;
+
 //    错误信息
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private String errorMsg;

@@ -6,6 +6,7 @@ import com.crk.custom_report.modle.DataSourceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +20,41 @@ public class ReportController {
     @RequestMapping("/goDataSourceList.do")
     public ModelAndView goDataSourceList(){
         ModelAndView modelAndView = new ModelAndView("dataSourceList");
+        return modelAndView;
+    }
+    /**
+     * 跳转新增数据源页面
+     * @return
+     */
+    @RequestMapping("/goAddDataSource.do")
+    public ModelAndView goAddDataSource(){
+        ModelAndView modelAndView = new ModelAndView("addDataSource");
+        return modelAndView;
+    }
+
+    /**
+     * 跳转编辑数据源页面
+     * @param dataSourceId 数据源ID
+     * @return
+     */
+    @RequestMapping("/goUpdateDataSource.do")
+    public ModelAndView goUpdateDataSource(@RequestParam String dataSourceId){
+        ModelAndView modelAndView = new ModelAndView("updateDataSource");
+        DataSourceEntity dataSource = reportService.getDataSourceById(dataSourceId);
+        modelAndView.addObject("dataSource",dataSource);
+        return modelAndView;
+    }
+
+    /**
+     * 跳转查看数据源页面
+     * @param dataSourceId 数据源ID
+     * @return
+     */
+    @RequestMapping("/goShowDataSource.do")
+    public ModelAndView goShowDataSource(@RequestParam String dataSourceId){
+        ModelAndView modelAndView = new ModelAndView("showDataSource");
+        DataSourceEntity dataSource = reportService.getDataSourceById(dataSourceId);
+        modelAndView.addObject("dataSource",dataSource);
         return modelAndView;
     }
     /**
@@ -83,6 +119,28 @@ public class ReportController {
                 return new JsonResult("1",result);
             }else{
                 return new JsonResult("0",null,"部分数据删除有异常");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new JsonResult("0",null,e.getMessage().toString());
+        }
+    }
+    /**
+     * 删除数据源
+     * @param dataSourceId
+     * @return
+     */
+    @RequestMapping("/deleteDataSourceById.do")
+    public JsonResult deleteDataSource(@RequestParam  String dataSourceId){
+        if (dataSourceId == null){
+            return new JsonResult("0",null,"传参有误");
+        }
+        try {
+            int result = reportService.deleteDataSource(dataSourceId);
+            if (result > 0){
+                return new JsonResult("1",result);
+            }else{
+                return new JsonResult("0",null,"数据删除有异常");
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -9,9 +9,13 @@ import java.util.List;
 public interface ReportService {
     public List<DataSourceEntity> getDataSourceList();
 
+    public DataSourceEntity getDataSourceById(String dataSourceId);
+
     public int addDataSource(DataSourceEntity dataSourceFormat);
 
     public int updateDataSource(DataSourceEntity dataSourceFormat);
 
     public int deleteDataSource(List<DataSourceEntity> dataSourceFormatList);
+
+    public int deleteDataSource(String dataSourceId);
 }

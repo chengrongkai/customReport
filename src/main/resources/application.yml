@@ -28,7 +28,7 @@ spring:
     port: 6379
     password: tj720!@
 server:
-  port: 8080
+  port: 8181
   servlet:
     path: /customReport
   thymeleaf:

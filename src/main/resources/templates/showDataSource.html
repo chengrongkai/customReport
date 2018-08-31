@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑数据源</title>
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css"/>
+</head>
+<body>
+<form class="layui-form" action="" id="dataSourceForm">
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据源名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="dataSourceId" required  lay-verify="required" hidden="hidden">
+            <input type="text" name="dataSourceName" value="${dataSource.dataSourceName}" required  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据源类型</label>
+        <div class="layui-input-block">
+            <input type="text" name="dataSourceType" value="${dataSource.dataSourceType}" required  lay-verify="required" placeholder="请输入类型" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input type="text" name="sort" value="${dataSource.sort}" required  lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">连接地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="connectUrl" value="${dataSource.connectUrl}" required  lay-verify="required" placeholder="请输入连接地址" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="connectUser" value="${dataSource.connectUser}" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="connectPassword" value="${dataSource.connectPassword}" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+        <!--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据库驱动</label>
+        <div class="layui-input-block">
+            <input type="text" name="connectDriver" value="${dataSource.connectDriver}" required  lay-verify="required" placeholder="请输入数据库驱动" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="../js/report/showDataSource.js"></script>
+</body>
+</html>

@@ -64,4 +64,11 @@ public interface DataSourceEntityMapper {
      * @mbggenerated
      */
     int updateByExample(@Param("record") DataSourceEntity record, @Param("example") DataSourceEntityExample example);
+
+    /**
+     * 根据主键查询数据源
+     * @param dataSourceId
+     * @return
+     */
+    DataSourceEntity selectByPrimaryKey(@Param("dataSourceId") String dataSourceId);
 }

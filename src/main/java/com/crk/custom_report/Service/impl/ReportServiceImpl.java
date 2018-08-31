@@ -20,6 +20,10 @@ public class ReportServiceImpl implements ReportService {
         List<DataSourceEntity> dataSourceEntityList = dataSourceEntityMapper.selectByExample(entityExample);
         return dataSourceEntityList;
     }
+    public DataSourceEntity getDataSourceById(String dataSourceId){
+        DataSourceEntity dataSourceEntity = dataSourceEntityMapper.selectByPrimaryKey(dataSourceId);
+        return dataSourceEntity;
+    }
 
     @Override
     public int addDataSource(DataSourceEntity dataSourceFormat) {
@@ -40,14 +44,20 @@ public class ReportServiceImpl implements ReportService {
     public int deleteDataSource(List<DataSourceEntity> dataSourceFormatList) {
         int count = 0;
         for (int i=0;i<dataSourceFormatList.size();i++){
-            DataSourceEntityExample entityExample = new DataSourceEntityExample();
-            DataSourceEntityExample.Criteria criteria = entityExample.createCriteria();
-            criteria.andDataSourceIdEqualTo(dataSourceFormatList.get(i).getDataSourceId());
-            int result = dataSourceEntityMapper.deleteByExample(entityExample);
+            int result = deleteDataSource(dataSourceFormatList.get(i).getDataSourceId());
             if (result != 0){
                 count++;
             }
         }
         return count;
+    }
+
+    @Override
+    public int deleteDataSource(String dataSourceId) {
+        DataSourceEntityExample entityExample = new DataSourceEntityExample();
+        DataSourceEntityExample.Criteria criteria = entityExample.createCriteria();
+        criteria.andDataSourceIdEqualTo(dataSourceId);
+        int result = dataSourceEntityMapper.deleteByExample(entityExample);
+        return 0;
     }
 }

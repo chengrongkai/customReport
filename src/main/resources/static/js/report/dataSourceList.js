@@ -11,20 +11,12 @@ layui.use(['layer','table'],function(){
         {field: 'sort', title: '排序',width:105, align:"center"},
         {fixed: 'right', width:150, align:'center', toolbar: '#dataSourceListDemo'} //这里的toolbar值是模板元素的选择器
     ];
-    tableIns = table.render({
+    var dataSourceList = [];
+    var tableIns = table.render({
         elem: '#dataSourceList',
-        url : projectName + '/report/getDataSource.do',
+
         toolbar: '#toolbarDemo',
-        parseData: function(res){ //res 即为原始返回的数据
-            debugger;
-           var success = res.success;
-           if(success == "0"){
-               return null;
-           }else
-           {
-               return res.data;
-           }
-        },
+        data: dataSourceList,
         cellMinWidth : 95,
         request:{
             pageName: 'currentPage',
@@ -41,16 +33,25 @@ layui.use(['layer','table'],function(){
     table.on('toolbar(dataSourceList)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         switch(obj.event){
-            case 'getCheckData':
+            case 'addDataSource':
                 var data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
-                break;
-            case 'getCheckLength':
-                var data = checkStatus.data;
-                layer.msg('选中了：'+ data.length + ' 个');
-                break;
-            case 'isAll':
-                layer.msg(checkStatus.isAll ? '全选': '未全选');
+                var index = layui.layer.open({
+                    title : "新增数据源",
+                    type : 2,
+                    area: ['80%','700px'],
+                    content : ['/report/goAddDataSource.do','yes'],
+                    success : function(layero, index){
+                        var body = layui.layer.getChildFrame('body', index);
+                        setTimeout(function(){
+                            layui.layer.tips('点击此处返回数据源列表', '.layui-layer-setwin .layui-layer-close', {
+                                tips: 3
+                            });
+                        },500)
+                    },
+                    end :function() {
+                    }
+                });
                 break;
         };
     });
@@ -59,101 +60,78 @@ layui.use(['layer','table'],function(){
         var layEvent = obj.event,
             data = obj.data;
         if(layEvent === 'edit'){ //编辑
-            editUser(data);
+            editDataSource(data);
         }else if(layEvent === 'show'){  //查看
-            showUser(data);
+            showDataSource(data);
         }else if(layEvent === 'del'){ //删除
             indexdel1 = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-            deleteColl(data.id);
+            deleteDataSource(data.id);
         }
     });
 
-    //修改1
-    function editUser(edit){
-
+    //编辑数据源
+    function editDataSource(edit){
         var index = layui.layer.open({
-            title : "修改化石",
+            title : "编辑数据源",
             type : 2,
             area: ['80%','700px'],
-            content : [projectName + '/collectionsFossil/toEdit.do?id=' + edit.id,'yes'],
+            content : ['/report/goUpdateDataSource.do?dataSourceId=' + edit.id,'yes'],
             success : function(layero, index){
-                resizeLayer(index);
                 var body = layui.layer.getChildFrame('body', index);
-                if(edit){
-
-//                	body.find("#editOrg option[value='"+edit.orgId+"']").attr("selected",true);
-
-
-                    form.render();
-                }
                 setTimeout(function(){
-                    layui.layer.tips('点击此处返回藏品列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回数据源列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 },500)
             },
             end :function() {
-                tableIns1.reload();
             }
         })
-//        layui.layer.full(index);
         window.sessionStorage.setItem("index",index);
         //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
         $(window).on("resize",function(){
             layui.layer.full(window.sessionStorage.getItem("index"));
         })
     }
-    //查看
-    function showUser(edit){
+    //查看数据源
+    function showDataSource(edit){
         var index = layui.layer.open({
-            title : "查看藏品",
+            title : "查看数据源",
             type : 2,
             area: ['80%','700px'],
-            content : [projectName + '/collections/toShow.do?id=' + edit.id,'yes'],
+            content : ['/report/goShowDataSource.do?dataSourceId=' + edit.id,'yes'],
             success : function(layero, index){
-                resizeLayer(index);
                 var body = layui.layer.getChildFrame('body', index);
-                if(edit){
-
-//                	body.find("#editOrg option[value='"+edit.orgId+"']").attr("selected",true);
-
-
-                    form.render();
-                }
                 setTimeout(function(){
-                    layui.layer.tips('点击此处返回藏品列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回数据源列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 },500)
             },
             end :function() {
-                tableIns.reload();
             }
         })
-        layui.layer.full(index);
         window.sessionStorage.setItem("index",index);
         //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
         $(window).on("resize",function(){
             layui.layer.full(window.sessionStorage.getItem("index"));
         })
     }
-
-    function deleteColl1(id) {
+    // 删除数据源
+    function deleteDataSource(id) {
         layer.confirm('确定删除此信息？', {
             btn: ['确定','再想想'] //按钮
         }, function(){
             $.ajax({
-                url : projectName + '/collectionsFossil/del.do',
+                url : '/report/deleteDataSource.do',
                 type : "post",
-                data :  {ids:id},
+                data :  {'dataSourceId':id},
                 dataType : "json",
                 async: false,
                 success : function(data){
                     top.layer.close(indexdel1);
                     if(data){
                         layer.msg('成功删除', {icon: 1});
-                        tableIns1.reload();
-
                     }else{
                         layer.msg('删除失败', {icon: 2});
                     }

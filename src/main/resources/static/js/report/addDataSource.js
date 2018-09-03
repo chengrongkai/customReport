@@ -6,7 +6,7 @@ layui.use('form', function(){
         var data = $("#dataSourceForm").serialize();
         var json = JSON.stringify(data);
         $.ajax({
-            url : '/report/addDataSource.do',
+            url : '../report/addDataSource.do',
             type : "post",
             data : json,
             dataType : "json",

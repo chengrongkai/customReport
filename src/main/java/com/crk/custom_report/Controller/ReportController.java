@@ -131,7 +131,7 @@ public class ReportController {
      * @return
      */
     @RequestMapping("/deleteDataSourceById.do")
-    public JsonResult deleteDataSource(@RequestParam  String dataSourceId){
+    public JsonResult deleteDataSource(@RequestParam  Integer dataSourceId){
         if (dataSourceId == null){
             return new JsonResult("0",null,"传参有误");
         }

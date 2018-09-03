@@ -17,5 +17,5 @@ public interface ReportService {
 
     public int deleteDataSource(List<DataSourceEntity> dataSourceFormatList);
 
-    public int deleteDataSource(String dataSourceId);
+    public int deleteDataSource(Integer dataSourceId);
 }

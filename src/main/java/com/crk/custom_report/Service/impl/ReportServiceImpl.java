@@ -29,7 +29,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public int addDataSource(DataSourceEntity dataSourceFormat) {
-        int count = dataSourceEntityMapper.insert(dataSourceFormat);
+        int count = dataSourceEntityMapper.insertAuto(dataSourceFormat);
         return count;
     }
 
@@ -55,7 +55,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public int deleteDataSource(String dataSourceId) {
+    public int deleteDataSource(Integer dataSourceId) {
         DataSourceEntityExample entityExample = new DataSourceEntityExample();
         DataSourceEntityExample.Criteria criteria = entityExample.createCriteria();
         criteria.andDataSourceIdEqualTo(dataSourceId);

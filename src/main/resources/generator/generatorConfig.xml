@@ -49,7 +49,7 @@
         </javaClientGenerator>
 
         <!-- 配置表信息 -->
-        <table schema="bjadmin" tableName="data_source"
+        <table schema="mydatabase" tableName="data_source"
                domainObjectName="DataSourceEntity" >
             <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
                 是否生成 example类   -->

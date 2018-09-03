@@ -14,12 +14,14 @@ import java.util.List;
 public class ReportServiceImpl implements ReportService {
     @Autowired
     DataSourceEntityMapper dataSourceEntityMapper;
+    @Override
     public List<DataSourceEntity> getDataSourceList(){
         DataSourceEntityExample entityExample = new DataSourceEntityExample();
         DataSourceEntityExample.Criteria criteria = entityExample.createCriteria();
         List<DataSourceEntity> dataSourceEntityList = dataSourceEntityMapper.selectByExample(entityExample);
         return dataSourceEntityList;
     }
+    @Override
     public DataSourceEntity getDataSourceById(String dataSourceId){
         DataSourceEntity dataSourceEntity = dataSourceEntityMapper.selectByPrimaryKey(dataSourceId);
         return dataSourceEntity;

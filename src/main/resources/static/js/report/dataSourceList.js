@@ -4,20 +4,34 @@ layui.use(['layer','table'],function(){
     var pathName = window.document.location.pathname;
     projectName = pathName.substring(0,pathName.substr(1).indexOf('/')+1);
     var renderList = [
-        {type:"numbers", title: '序号', width:70, align:"center"},
+        {type:"numbers", title: '序号', align:"center"},
         {field: 'dataSourceId', title: '数据源Id', align:"center"},
-        {field: 'dataSourceName', title: '数据源名称', align:"center"},
+        {field: 'dataSourceName', title: '数据源名称',align:"center"},
         {field: 'dataSourceType', title: '数据源类型', align:"center"},
-        {field: 'sort', title: '排序',width:105, align:"center"},
-        {fixed: 'right', width:150, align:'center', toolbar: '#dataSourceListDemo'} //这里的toolbar值是模板元素的选择器
+        {field: 'sort', title: '排序', align:"center"},
+        {fixed: 'right',title: '操作', align:'center', toolbar: '#dataSourceListDemo'} //这里的toolbar值是模板元素的选择器
     ];
     var dataSourceList = [];
+    $.ajax({
+        url : '../report/getDataSource.do',
+        type : "post",
+        data :  null,
+        dataType : "json",
+        async: false,
+        success : function(data){
+            if(data.success == "1"){
+                dataSourceList = data.data;
+            }else{
+                layer.msg('数据源列表加载失败', {icon: 2});
+                console.log(data.errorMsg);
+            }
+        },
+    });
     var tableIns = table.render({
         elem: '#dataSourceList',
-
         toolbar: '#toolbarDemo',
         data: dataSourceList,
-        cellMinWidth : 95,
+        cellMinWidth : 80,
         request:{
             pageName: 'currentPage',
             limitName: 'size'
@@ -26,35 +40,9 @@ layui.use(['layer','table'],function(){
         height : 600,
         limits : [10,15,20,25],
         limit : 10,
-        id : "dataSourceListTable",
         cols :[renderList]
     });
-    //头工具栏事件
-    table.on('toolbar(dataSourceList)', function(obj){
-        var checkStatus = table.checkStatus(obj.config.id);
-        switch(obj.event){
-            case 'addDataSource':
-                var data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-                var index = layui.layer.open({
-                    title : "新增数据源",
-                    type : 2,
-                    area: ['80%','700px'],
-                    content : ['/report/goAddDataSource.do','yes'],
-                    success : function(layero, index){
-                        var body = layui.layer.getChildFrame('body', index);
-                        setTimeout(function(){
-                            layui.layer.tips('点击此处返回数据源列表', '.layui-layer-setwin .layui-layer-close', {
-                                tips: 3
-                            });
-                        },500)
-                    },
-                    end :function() {
-                    }
-                });
-                break;
-        };
-    });
+
     //列表操作
     table.on('tool(dataSourceList)', function(obj){
         var layEvent = obj.event,
@@ -65,7 +53,7 @@ layui.use(['layer','table'],function(){
             showDataSource(data);
         }else if(layEvent === 'del'){ //删除
             indexdel1 = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-            deleteDataSource(data.id);
+            deleteDataSource(data.dataSourceId);
         }
     });
 
@@ -75,7 +63,7 @@ layui.use(['layer','table'],function(){
             title : "编辑数据源",
             type : 2,
             area: ['80%','700px'],
-            content : ['/report/goUpdateDataSource.do?dataSourceId=' + edit.id,'yes'],
+            content : ['../report/goUpdateDataSource.do?dataSourceId=' + edit.dataSourceId,'yes'],
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 setTimeout(function(){
@@ -99,7 +87,7 @@ layui.use(['layer','table'],function(){
             title : "查看数据源",
             type : 2,
             area: ['80%','700px'],
-            content : ['/report/goShowDataSource.do?dataSourceId=' + edit.id,'yes'],
+            content : ['../report/goShowDataSource.do?dataSourceId=' + edit.dataSourceId,'yes'],
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 setTimeout(function(){
@@ -123,7 +111,7 @@ layui.use(['layer','table'],function(){
             btn: ['确定','再想想'] //按钮
         }, function(){
             $.ajax({
-                url : '/report/deleteDataSource.do',
+                url : '../report/deleteDataSource.do',
                 type : "post",
                 data :  {'dataSourceId':id},
                 dataType : "json",
@@ -142,4 +130,24 @@ layui.use(['layer','table'],function(){
             });
         });
     };
+
+    $("#addDataSurce").click(function () {
+        var index = layui.layer.open({
+            title : "新增数据源",
+            type : 2,
+            area: ['80%','700px'],
+            content : ['../report/goAddDataSource.do','yes'],
+            success : function(layero, index){
+                var body = layui.layer.getChildFrame('body', index);
+                setTimeout(function(){
+                    layui.layer.tips('点击此处返回数据源列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                },500)
+            },
+            end :function() {
+            }
+        });
+    })
 });
+

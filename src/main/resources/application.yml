@@ -1,4 +1,10 @@
 spring:
+  devtools:
+    restart:
+      enabled: false
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
   mvc:
     view:
       prefix: classpath:/templates/
@@ -7,7 +13,7 @@ spring:
     name: default
     url: jdbc:mysql://localhost:3306/mydatabase?useUnicode=true&amp;characterEncoding=UTF-8
     username: root
-    password: 123456
+    password: 941021
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
     filters: stat

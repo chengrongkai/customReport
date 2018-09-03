@@ -1,5 +1,6 @@
 layui.use('form', function(){
     var form = layui.form;
+    $ = layui.jquery;
     //监听提交
     form.on('submit(save)', function(data){
         var data = $("#dataSourceForm").serialize();

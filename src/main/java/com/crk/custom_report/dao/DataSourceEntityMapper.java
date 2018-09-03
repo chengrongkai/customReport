@@ -71,4 +71,6 @@ public interface DataSourceEntityMapper {
      * @return
      */
     DataSourceEntity selectByPrimaryKey(@Param("dataSourceId") String dataSourceId);
+
+    int insertAuto(DataSourceEntity record);
 }

@@ -309,4 +309,13 @@
     #{connectPassword,jdbcType=VARCHAR}, #{connectDriver,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR},
     #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR})
   </insert>
+  <resultMap id="test" type="java.util.HashMap">
+    <result column="data_source_id" jdbcType="INTEGER" property="dataSourceId" />
+    <result column="data_source_name" jdbcType="VARCHAR" property="dataSourceName" />
+  </resultMap>
+
+  <select id="getTest" resultMap="test">
+      select * from data_source where
+      data_source_id = '1'
+  </select>
 </mapper>

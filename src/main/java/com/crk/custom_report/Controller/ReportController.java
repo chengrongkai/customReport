@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -146,5 +147,12 @@ public class ReportController {
             e.printStackTrace();
             return new JsonResult("0",null,e.getMessage().toString());
         }
+    }
+
+    @RequestMapping("/getTets.do")
+    public JsonResult getTest(){
+        HashMap<String,Object> data = reportService.getTest();
+        JsonResult result = new JsonResult("1",data);
+        return result;
     }
 }

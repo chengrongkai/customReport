@@ -3,6 +3,7 @@ package com.crk.custom_report.Service;
 import com.crk.custom_report.modle.DataSourceEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -18,4 +19,6 @@ public interface ReportService {
     public int deleteDataSource(List<DataSourceEntity> dataSourceFormatList);
 
     public int deleteDataSource(Integer dataSourceId);
+
+    public HashMap<String,Object> getTest();
 }

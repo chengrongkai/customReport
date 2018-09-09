@@ -2,6 +2,8 @@ package com.crk.custom_report.dao;
 
 import com.crk.custom_report.modle.DataSourceEntity;
 import com.crk.custom_report.modle.DataSourceEntityExample;
+
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.context.annotation.ComponentScan;
@@ -73,4 +75,6 @@ public interface DataSourceEntityMapper {
     DataSourceEntity selectByPrimaryKey(@Param("dataSourceId") String dataSourceId);
 
     int insertAuto(DataSourceEntity record);
+
+    HashMap<String,Object> getTest();
 }

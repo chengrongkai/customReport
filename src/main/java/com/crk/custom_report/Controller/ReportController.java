@@ -3,8 +3,8 @@ package com.crk.custom_report.Controller;
 import com.crk.custom_report.Service.ReportService;
 import com.crk.custom_report.common.JsonResult;
 import com.crk.custom_report.modle.DataSourceEntity;
+import com.crk.custom_report.modle.TableInfoTree;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,6 +55,11 @@ public class ReportController {
         ModelAndView modelAndView = new ModelAndView("showDataSource");
         DataSourceEntity dataSource = reportService.getDataSourceById(dataSourceId);
         modelAndView.addObject("dataSource",dataSource);
+        return modelAndView;
+    }
+    @RequestMapping("/goReportConfig.do")
+    public ModelAndView goReportConfig(){
+        ModelAndView modelAndView = new ModelAndView("reportConfig");
         return modelAndView;
     }
     /**
@@ -142,6 +147,17 @@ public class ReportController {
             }else{
                 return new JsonResult("0",null,"数据删除有异常");
             }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new JsonResult("0",null,e.getMessage().toString());
+        }
+    }
+
+    @RequestMapping("/getTableInfo.do")
+    public JsonResult getTableInfo(String tableSchema){
+        try {
+            List<TableInfoTree> reportEntityList = reportService.getTableInfo(tableSchema);
+            return new JsonResult("1",reportEntityList);
         }catch (Exception e){
             e.printStackTrace();
             return new JsonResult("0",null,e.getMessage().toString());

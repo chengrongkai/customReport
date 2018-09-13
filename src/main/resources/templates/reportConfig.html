@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>报表配置</title>
+    <link rel="stylesheet" href="../ztree/css/bootstrapStyle/bootstrapStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css"/>
+    <script type="text/javascript" src="../ztree/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="../ztree/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="../ztree/js/jquery.ztree.exedit.js"></script>
+    <script type="text/javascript" src="../layui/layui.js"></script>
+</head>
+<body>
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">选择数据列</li>
+            <li>SQL预览</li>
+            <li>图表预览</li>
+            <li>生成报表</li>
+            <li>提交</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="layui-row">
+                    <div class="layui-card layui-col-md3">
+                        <div class="layui-card-header">数据库映射</div>
+                        <div class="layui-card-body">
+                            <ul id="treeDemo" class="ztree">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="layui-card layui-col-md6">
+                        <div class="layui-card-header">已选择的数据库字段</div>
+                        <div class="layui-card-body">
+                            <table class="layui-hide" id="coulumnList"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item">2</div>
+            <div class="layui-tab-item">3</div>
+            <div class="layui-tab-item">4</div>
+            <div class="layui-tab-item">5</div>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script type="text/javascript" src="../js/report/reportConfig.js"></script>
+</body>
+</html>

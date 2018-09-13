@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crk.custom_report.dao.ReportMapper">
+  <resultMap id="TableInfo" type="com.crk.custom_report.modle.TableEntity">
+    <result column="TABLE_NAME" jdbcType="VARCHAR" property="tableName" />
+    <result column="TABLE_COMMENT" jdbcType="VARCHAR" property="tableComment" />
+    <result column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
+    <result column="COLUMN_TYPE" jdbcType="VARCHAR" property="columnType" />
+    <result column="COLUMN_COMMENT" jdbcType="VARCHAR" property="columnComment" />
+  </resultMap>
+  <select id="getTableInfo" resultMap="TableInfo">
+    SELECT
+        t.TABLE_NAME,
+        t.TABLE_COMMENT,
+        c.COLUMN_NAME,
+        c.COLUMN_TYPE,
+        c.COLUMN_COMMENT
+    FROM
+        information_schema.TABLES t,
+        INFORMATION_SCHEMA.COLUMNS c
+    WHERE
+        c.TABLE_NAME = t.TABLE_NAME
+    <if test="tableSchema != null ">
+        and t.`TABLE_SCHEMA` = #{tableSchema}
+    </if>
+  </select>
+
+</mapper>

@@ -1,6 +1,7 @@
 package com.crk.custom_report.Service;
 
 import com.crk.custom_report.modle.DataSourceEntity;
+import com.crk.custom_report.modle.TableInfoTree;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface ReportService {
     public int deleteDataSource(List<DataSourceEntity> dataSourceFormatList);
 
     public int deleteDataSource(String dataSourceId);
+
+    List<TableInfoTree> getTableInfo(String tableSchema);
 }

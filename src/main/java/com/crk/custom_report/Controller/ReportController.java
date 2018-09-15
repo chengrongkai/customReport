@@ -4,7 +4,6 @@ import com.crk.custom_report.Service.ReportService;
 import com.crk.custom_report.common.JsonResult;
 import com.crk.custom_report.modle.DataSourceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,19 +29,6 @@ public class ReportController {
     @RequestMapping("/goAddDataSource.do")
     public ModelAndView goAddDataSource(){
         ModelAndView modelAndView = new ModelAndView("addDataSource");
-        return modelAndView;
-    }
-
-    /**
-     * 跳转编辑数据源页面
-     * @param dataSourceId 数据源ID
-     * @return
-     */
-    @RequestMapping("/goUpdateDataSource.do")
-    public ModelAndView goUpdateDataSource(@RequestParam String dataSourceId){
-        ModelAndView modelAndView = new ModelAndView("updateDataSource");
-        DataSourceEntity dataSource = reportService.getDataSourceById(dataSourceId);
-        modelAndView.addObject("dataSource",dataSource);
         return modelAndView;
     }
 
@@ -79,7 +65,7 @@ public class ReportController {
      * @return
      */
     @RequestMapping("/addDataSource.do")
-    public JsonResult addDataSource(DataSourceEntity dataSourceFormat){
+    public JsonResult addDataSource( DataSourceEntity dataSourceFormat){
         try {
             int result = reportService.addDataSource(dataSourceFormat);
             return new JsonResult("1",result);
